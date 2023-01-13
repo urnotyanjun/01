@@ -1,0 +1,47 @@
+Similar to storing binary tree information in an array, it also accesses a single-linked list through the relationship between subscripts. Unlike arrays, access to a single linked list must start at the beginning of the node and go back step by step
+
+//Link list
+class LinkList{
+    Node value;
+    LinkList next;
+
+    public LinkList(Node value){
+        this.value = value;
+    }
+
+    //Find the parent node, left child and right child of the corresponding index
+    public Node findFather(int index, LinkList l){
+        int result = 0;
+        if(index % 2 == 0){
+            result = index / 2 - 1;
+        }else {
+            result = index / 2;
+        }
+        LinkList ll = null;
+        while(result != 0){
+            ll = l.next;
+            result --;
+        }
+        return ll.value;
+    }
+
+    public Node findLChild(int index, LinkList l){
+        int result = 2 * index + 1;
+        LinkList ll = null;
+        while(result != 0){
+            ll = l.next;
+            result --;
+        }
+        return ll.value;
+    }
+
+    public Node findRChild(int index, LinkList l){
+        int result = 2 * index + 2;
+        LinkList ll = null;
+        while(result != 0){
+            ll = l.next;
+            result --;
+        }
+        return ll.value;
+    }
+}
