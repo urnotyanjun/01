@@ -1,0 +1,13 @@
+The logic of initializing the heap is to give you an array that is not sorted according to rules, and rearrange it in place to meet the requirements of the heap. The specific operation is to find the last node with children, and the position in the complete binary tree is [n/2 rounded down. Traverse this node and the previous node, and perform the downward bubble operation each time.
+
+Because there are n/2 elements that need to perform operations similar to deletion, the time complexity at first glance should be O (nlogn). However, not every element needs a downward bubbling operation with a time of O (h).
+
+In fact, only the time required for the root node to bubble down is O (h), the time required for the child node of the root node is O (h-1), and the time required for the layer i node to bubble down is O (h-i).
+
+According to the properties of the complete binary tree, the number of nodes in the first layer is 1, the second layer is 2, and the maximum number of nodes in the second layer is 2 ^ (i-1).
+
+
+The sum of k/2 ^ k is a knowledge point in high school. Multiply the sum by 1/2 to get another equation, and then cross and subtract to solve it.
+To sum up, the time complexity of initializing the heap is O (n)
+
+Multiply and sum the number of nodes in each layer and the number of operations to obtain
