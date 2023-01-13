@@ -1,0 +1,10 @@
+Basic idea:
+1.Heap sort is a sort algorithm designed by using the data structure of heap. Heap sort is a sort of choice. Its worst, best and average time complexity are O (nlogn), and it is also unstable sort.
+2.The 2 heap is a complete binary tree with the following properties: the value of each node is greater than or equal to the value of its left and right child nodes. This situation is called the big top heap. Note: there is no relationship between the value of the left child and the value of the right child of the node.
+3.The value of each node is less than or equal to the value of its left and right child nodes, which is called small top heap.
+
+Execute steps：
+We can treat leaf nodes as heaps, add non-leaf nodes on the basis of leaf nodes, and adjust them. The process is the same as adjusting the heap.
+1  Note here that the array subscripts start from 0, so the left and right sub-node subscripts of node (i) are 2 * i+1, 2 * i+2 respectively. And the subscript of the first non-leaf node islen/2-1.
+2  Adjust the heap: after the original number has formed the heap, exchange the position between the top element A [0] and the last element A [n-1] in the heap, and then adjust A [0,1,2.... N-2] to the maximum heap
+3  Repeat the second step until there is only one element left. At this time, A [0,1,2... n-1] is an array sorted from small to large, and does not occupy additional space
