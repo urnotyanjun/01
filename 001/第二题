@@ -1,0 +1,116 @@
+2.1  Priority queue
+A common queue is a first-in, first-out data structure. Elements are added at the end of the queue and deleted from the queue header. In some cases, we may need to find the maximum or minimum value in the queue. For example, we use a queue to save computer tasks. Generally, computer tasks have priority. We need to find the task with the highest priority in these computer tasks to execute first, and then we need to remove this task from the queue after execution. To complete this function, a common queue needs to traverse all the elements in the queue every time, compare and find the maximum value, which is not very efficient. At this time, we can use a special queue to complete this requirement, priority queue.
+The maximum priority queue is implemented based on the heap data structure, which can easily delete the minimum value
+
+2.2  Attach code
+
+package tree;
+
+/**
+ * Minimum priority queue
+ */
+public class MinPriorityQueue<T extends Comparable<T>> {
+
+    private T[] items;
+
+    private int n;
+
+    public MinPriorityQueue(int capacity) {
+        // The 0 index position of the default array does not store elements
+        items = (T[]) new Comparable[capacity + 1];
+        n = 0;
+    }
+
+    public int size() {
+        return n;
+    }
+
+    /**
+     * Insert an element into the queue
+     *
+     * @param t
+     */
+    public void add(T t) {
+        // Insert to end of array
+        items[++n] = t;
+        // Element float up
+        swim(n);
+    }
+
+    /**
+     * Delete the smallest element in the queue
+     *
+     * @return Return the smallest element to be deleted
+     */
+    public T deleteMin() {
+        T min = items[1];
+        items[1] = items[n];
+        items[n] = null;
+        n--;
+        sink(1);
+        return min;
+    }
+
+    /**
+     * Element sinking
+     */
+    private void sink(int k) {
+        //Condition: child node exists
+        while (2 * k <= n) {
+            // Index value of the smaller value in the left and right child nodes
+            int biggerIndex = 0;
+            // There is a right child node, and the right child node is small,
+            if (2 * k + 1 <= n && less(2 * k+1, 2 * k)) {
+                biggerIndex = 2 * k + 1;
+            } else {
+                biggerIndex = 2 * k;
+            }
+            // If the current node value is greater than the smaller value in the child 				node, exchange the value
+            if (less(biggerIndex, k)) {
+                exch(biggerIndex, k);
+                k = biggerIndex;
+            } else {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Element float up
+     */
+    private void swim(int k) {
+        // Cycle condition has parent node
+        while (k / 2 >= 1) {
+            // If the current node is smaller than the parent node, exchange values
+            if (less(k, k / 2)) {
+                exch(k, k / 2);
+                k = k / 2;
+            } else {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Judge whether the value at index i is less than the value at index j
+     *
+     * @param i
+     * @param j
+     * @return
+     */
+    private boolean less(int i, int j) {
+        return items[i].compareTo(items[j]) < 0;
+    }
+
+    /**
+     * Exchange element
+     *
+     * @param i
+     * @param j
+     */
+    private void exch(int i, int j) {
+        T temp = items[i];
+        items[i] = items[j];
+        items[j] = temp;
+    }
+}
